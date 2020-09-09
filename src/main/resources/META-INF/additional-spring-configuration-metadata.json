@@ -1,0 +1,24 @@
+{
+  "properties": [
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "Secret for JWT Authentication."
+    },
+    {
+      "name": "jwt.issuer",
+      "type": "java.lang.String",
+      "description": "Issuer for JWT Authentication."
+    },
+    {
+      "name": "jwt.type",
+      "type": "java.lang.String",
+      "description": "Type of JWT Authentication.",
+      "defaultValue": "JWT"
+    },
+    {
+      "name": "jwt.audience",
+      "type": "java.lang.String",
+      "description": "App Name for JWT Authentication."
+    }
+  ] }

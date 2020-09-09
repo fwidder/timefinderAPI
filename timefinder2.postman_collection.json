@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "0eb1b94f-c51b-4dc1-9684-fa5bb3375652",
+		"name": "TimeFinder2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createTestUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb08a772-200f-4b8f-80ab-71247042b6a9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\" : \"{{user}}\",\n    \"password\" : \"{{pass}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/sign-up",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"sign-up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEcho",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "34c333cc-6bf1-43b7-96df-3eea099a736e",
+						"exec": [
+							"pm.test(\"Check response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql('Hello World');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/echo",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"echo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postEchoWithError",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a0a11ea8-30f6-4211-b124-8f9d3070c9c8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"message\" : \"Hello Postman\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/echo",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"echo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bca92a13-c46f-470b-93b6-87d8c5e3c2a0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"postman.setEnvironmentVariable(\"JWT-Token\",postman.getResponseHeader(\"Authorization\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{pass}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/jwt-login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jwt-login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postEcho",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "12cdcb07-adb6-4e6c-9aa7-92ebf538ba2f",
+						"exec": [
+							"pm.test(\"Check Response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql('Hello Postman');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{JWT-Token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"message\" : \"Hello Postman\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/echo",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"echo"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "8dd0d3f3-452a-4a2d-9198-9206590b760e",
+			"key": "JWT-Token",
+			"value": "Authorization"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
