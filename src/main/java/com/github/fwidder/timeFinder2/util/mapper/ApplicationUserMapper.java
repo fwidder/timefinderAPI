@@ -10,6 +10,7 @@ public class ApplicationUserMapper {
         return ApplicationUser.builder()//
                 .password(applicationUserRequest.getPassword())//
                 .username(applicationUserRequest.getUsername())//
+                .email(applicationUserRequest.getEmail())//
                 .build();
     }
 }

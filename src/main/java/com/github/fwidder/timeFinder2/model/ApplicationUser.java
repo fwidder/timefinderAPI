@@ -13,6 +13,8 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @Entity
+@Table(indexes = {  @Index(name = "userIndex", columnList = "USERNAME"),
+                    @Index(name = "emailIndex", columnList = "EMAIL")})
 public class ApplicationUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +23,10 @@ public class ApplicationUser {
     @NotNull
     @Column(unique = true)
     private String username;
+
+    @NotNull
+    @Column(unique = true)
+    private String email;
 
     @NotNull
     @Column

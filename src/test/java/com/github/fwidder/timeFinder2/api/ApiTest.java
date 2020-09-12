@@ -10,7 +10,6 @@ import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -20,7 +19,7 @@ import static org.hamcrest.Matchers.equalTo;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ApiTest {
 
-    public static final String USER_PASS = "test";
+    public static final String USER_PASS_MAIL = "test";
     int randomServerPort = 12345;
 
     String url_base =  "http://localhost:" + randomServerPort;
@@ -32,7 +31,7 @@ public class ApiTest {
     public void createUserTest(){
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/users/sign-up";
-        HttpEntity<ApplicationUserRequest> request = new HttpEntity<>(new ApplicationUserRequest(USER_PASS, USER_PASS));
+        HttpEntity<ApplicationUserRequest> request = new HttpEntity<>(new ApplicationUserRequest(USER_PASS_MAIL, USER_PASS_MAIL + "@test.de", USER_PASS_MAIL));
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
     }
@@ -61,16 +60,27 @@ public class ApiTest {
     public void loginErrorTest(){
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/jwt-login";
-        HttpEntity<String> request = new HttpEntity<>(createHeaders(USER_PASS +"XX", USER_PASS));
+        HttpEntity<String> request = new HttpEntity<>(createHeaders(USER_PASS_MAIL +"XX", USER_PASS_MAIL));
         Assertions.assertThrows(HttpClientErrorException.class, () -> restTemplate.postForEntity(url, request, String.class));
     }
 
     @Test
     @Order(5)
-    public void loginTest(){
+    public void loginUsernameTest(){
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/jwt-login";
-        HttpEntity<String> request = new HttpEntity<>(createHeaders(USER_PASS, USER_PASS));
+        HttpEntity<String> request = new HttpEntity<>(createHeaders(USER_PASS_MAIL, USER_PASS_MAIL));
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
+        assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+        jwt = response.getHeaders().getFirst("Authorization");
+    }
+
+    @Test
+    @Order(5)
+    public void loginEmailTest(){
+        RestTemplate restTemplate = new RestTemplate();
+        String url = url_base + "/jwt-login";
+        HttpEntity<String> request = new HttpEntity<>(createHeaders(USER_PASS_MAIL + "@test.de", USER_PASS_MAIL));
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
         jwt = response.getHeaders().getFirst("Authorization");
