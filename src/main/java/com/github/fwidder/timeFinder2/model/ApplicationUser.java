@@ -1,5 +1,6 @@
 package com.github.fwidder.timeFinder2.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,29 +27,35 @@ public class ApplicationUser {
 
     @NotNull
     @Column(unique = true)
+    @JsonIgnore
     private String email;
 
     @NotNull
     @Column
+    @JsonIgnore
     private String password;
 
     @Column
     @NotNull
     @Builder.Default
+    @JsonIgnore
     private Boolean AccountNonExpired = true;
 
     @Column
     @NotNull
     @Builder.Default
+    @JsonIgnore
     private Boolean AccountNonLocked = true;
 
     @Column
     @NotNull
     @Builder.Default
+    @JsonIgnore
     private Boolean CredentialsNonExpired = true;
 
     @Column
     @NotNull
     @Builder.Default
+    @JsonIgnore
     private Boolean Enabled = true;
 }
