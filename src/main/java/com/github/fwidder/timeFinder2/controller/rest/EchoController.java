@@ -2,7 +2,7 @@ package com.github.fwidder.timeFinder2.controller.rest;
 
 import com.github.fwidder.timeFinder2.model.EchoMessage;
 import com.github.fwidder.timeFinder2.model.rest.EchoRequest;
-import com.github.fwidder.timeFinder2.service.rest.EchoService;
+import com.github.fwidder.timeFinder2.service.EchoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

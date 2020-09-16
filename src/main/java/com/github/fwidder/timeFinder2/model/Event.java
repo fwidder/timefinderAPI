@@ -14,9 +14,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-@Table(indexes = {  @Index(name = "creatorIndex", columnList = "CREATOR_ID"),
-                    @Index(name = "timeIndex", columnList = "START, END"),
-                    @Index(name = "secureIndex", columnList = "SECURE")})
+@Table(indexes = {  @Index(name = "eventCreatorIndex", columnList = "CREATOR_ID"),
+                    @Index(name = "eventTimeIndex", columnList = "START, END"),
+                    @Index(name = "eventSecureIndex", columnList = "SECURE")})
 public class Event {
 
     @Id

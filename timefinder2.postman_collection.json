@@ -324,7 +324,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\" : \"TestEvent\",\n    \"description\" : \"TestDescription\",\n    \"secure\" : true,\n    \"password\" : \"testPass\",\n    \"start\" : \"2020-01-01\",\n    \"end\" : \"2020-02-01\"\n}",
+					"raw": "{\n    \"name\" : \"TestEvent\",\n    \"description\" : \"TestDescription\",\n    \"secure\" : true,\n    \"password\" : \"{{eventPass}}\",\n    \"start\" : \"2020-01-01\",\n    \"end\" : \"2020-02-01\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -672,11 +672,8 @@
 					}
 				}
 			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [
 					{
 						"key": "Authorization",
@@ -707,11 +704,407 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "getBestDay",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93124260-f4bf-46c2-aae3-919eeeef6252",
+						"exec": [
+							"pm.test(\"Returns \\\"2020-01-01\\\"\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"2020-01-01\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{JWT-Token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/booking/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"booking",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postBookingNoPassword",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0860a7ac-4c83-432a-b78b-e5c23a468615",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{JWT-Token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/booking/2/2020-01-03",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"booking",
+						"2",
+						"2020-01-03"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postBookingWrongPassword",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b69a5c27-2f62-4128-b4db-0ce45f52f8fc",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{JWT-Token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "TestFalsch",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/booking/2/2020-01-03",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"booking",
+						"2",
+						"2020-01-03"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postBooking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3317cdc7-8cf6-40da-831a-2ed4f19e036b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{JWT-Token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{eventPass}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/booking/2/2020-01-03",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"booking",
+						"2",
+						"2020-01-03"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBestDayAfterVote",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f91d316c-3aa3-44e2-a554-9cb8ba39e0cc",
+						"exec": [
+							"pm.test(\"Returns \\\"2020-01-01\\\"\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"2020-01-03\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{JWT-Token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/booking/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"booking",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postBookingDuplicate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5d8b8183-5c49-43aa-9335-3094899de47f",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{JWT-Token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/booking/2/2020-01-03",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"booking",
+						"2",
+						"2020-01-03"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteBooking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bc71c808-4f22-4963-9c60-ea30f43a4e0e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{JWT-Token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/booking/2/2020-01-03",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"booking",
+						"2",
+						"2020-01-03"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteBookingNotExisting",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b6e2499-fa85-4812-9031-057e16d277f1",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{JWT-Token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/booking/2/2020-01-09",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"booking",
+						"2",
+						"2020-01-09"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"variable": [
 		{
-			"id": "908d697d-b37b-4438-ac98-4a65d2a4a9eb",
+			"id": "7572992f-cf6e-4306-94f8-5bbfb26e7788",
 			"key": "JWT-Token",
 			"value": "Authorization"
 		}

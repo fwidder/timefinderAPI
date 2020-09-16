@@ -1,4 +1,4 @@
-package com.github.fwidder.timeFinder2.service.rest;
+package com.github.fwidder.timeFinder2.service;
 
 import com.github.fwidder.timeFinder2.model.EchoMessage;
 import lombok.extern.slf4j.Slf4j;

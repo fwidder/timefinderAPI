@@ -6,6 +6,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 public class UserPrincipal implements UserDetails {
+    public ApplicationUser getApplicationUser() {
+        return applicationUser;
+    }
+
     private final ApplicationUser applicationUser;
     public UserPrincipal(ApplicationUser applicationUser) {
         this.applicationUser = applicationUser;
