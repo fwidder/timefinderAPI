@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface EventBookingRepository extends JpaRepository<EventBooking, Long> {
     List<EventBooking> findAllByAttendee(ApplicationUser attendee);
+
     List<EventBooking> findAllByEvent(Event event);
+
     EventBooking findByDayAndEventAndAttendee(LocalDate day, Event event, ApplicationUser user);
 }

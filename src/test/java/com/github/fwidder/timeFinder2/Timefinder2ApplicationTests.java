@@ -6,9 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class TimeFinder2ApplicationTests {
 
-	@Test
-	void contextLoads() {
-		// Context Tested
-	}
+    @Test
+    void contextLoads() {
+        // Context Tested
+    }
 
 }

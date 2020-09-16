@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ApplicationUserMapper {
-    public ApplicationUser map(ApplicationUserRequest applicationUserRequest){
+    public ApplicationUser map(ApplicationUserRequest applicationUserRequest) {
         return ApplicationUser.builder()//
                 .password(applicationUserRequest.getPassword())//
                 .username(applicationUserRequest.getUsername())//

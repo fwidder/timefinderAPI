@@ -1,10 +1,7 @@
 package com.github.fwidder.timeFinder2.model.rest;
 
-import com.github.fwidder.timeFinder2.model.ApplicationUser;
 import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter

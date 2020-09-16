@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class EchoService {
-    public EchoMessage getEcho(){
+    public EchoMessage getEcho() {
         log.debug("Creating empty Message");
         return EchoMessage.builder().build();
     }
 
-    public EchoMessage getEcho(String message){
+    public EchoMessage getEcho(String message) {
         log.debug("Creating Message from String");
         return EchoMessage.builder().message(message).build();
     }

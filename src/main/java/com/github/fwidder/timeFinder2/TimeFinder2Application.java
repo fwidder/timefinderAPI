@@ -10,8 +10,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @EnableConfigurationProperties
 public class TimeFinder2Application {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TimeFinder2Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TimeFinder2Application.class, args);
+    }
 
 }

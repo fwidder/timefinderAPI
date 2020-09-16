@@ -1,7 +1,6 @@
 package com.github.fwidder.timeFinder2.api;
 
 import com.github.fwidder.timeFinder2.model.EchoMessage;
-import com.github.fwidder.timeFinder2.model.Event;
 import com.github.fwidder.timeFinder2.model.rest.ApplicationUserRequest;
 import com.github.fwidder.timeFinder2.model.rest.EchoRequest;
 import com.github.fwidder.timeFinder2.model.rest.EventRequest;
@@ -24,15 +23,13 @@ import static org.hamcrest.Matchers.equalTo;
 public class ApiTest {
 
     public static final String USER_PASS_MAIL = "test";
-    int randomServerPort = 12345;
-
-    String url_base =  "http://localhost:" + randomServerPort;
-
     static String jwt = null;
+    int randomServerPort = 12345;
+    String url_base = "http://localhost:" + randomServerPort;
 
     @Test
     @Order(1)
-    public void createUserTest(){
+    public void createUserTest() {
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/users/sign-up";
         HttpEntity<ApplicationUserRequest> request = new HttpEntity<>(new ApplicationUserRequest(USER_PASS_MAIL, USER_PASS_MAIL + "@test.de", USER_PASS_MAIL));
@@ -42,7 +39,7 @@ public class ApiTest {
 
     @Test
     @Order(2)
-    public void getEchoTest(){
+    public void getEchoTest() {
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/echo";
         ResponseEntity<EchoMessage> response = restTemplate.getForEntity(url, EchoMessage.class);
@@ -52,7 +49,7 @@ public class ApiTest {
 
     @Test
     @Order(3)
-    public void postEchoErrorTest(){
+    public void postEchoErrorTest() {
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/echo";
         HttpEntity<EchoRequest> request = new HttpEntity<>(new EchoRequest("Hello Test"));
@@ -61,16 +58,16 @@ public class ApiTest {
 
     @Test
     @Order(4)
-    public void loginErrorTest(){
+    public void loginErrorTest() {
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/jwt-login";
-        HttpEntity<String> request = new HttpEntity<>(createHeaders(USER_PASS_MAIL +"XX", USER_PASS_MAIL));
+        HttpEntity<String> request = new HttpEntity<>(createHeaders(USER_PASS_MAIL + "XX", USER_PASS_MAIL));
         Assertions.assertThrows(HttpClientErrorException.Unauthorized.class, () -> restTemplate.postForEntity(url, request, String.class));
     }
 
     @Test
     @Order(5)
-    public void loginUsernameTest(){
+    public void loginUsernameTest() {
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/jwt-login";
         HttpEntity<String> request = new HttpEntity<>(createHeaders(USER_PASS_MAIL, USER_PASS_MAIL));
@@ -81,7 +78,7 @@ public class ApiTest {
 
     @Test
     @Order(5)
-    public void loginEmailTest(){
+    public void loginEmailTest() {
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/jwt-login";
         HttpEntity<String> request = new HttpEntity<>(createHeaders(USER_PASS_MAIL + "@test.de", USER_PASS_MAIL));
@@ -92,10 +89,10 @@ public class ApiTest {
 
     @Test
     @Order(6)
-    public void postEchoTest(){
+    public void postEchoTest() {
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/echo";
-        HttpEntity<EchoRequest> request = new HttpEntity<>(new EchoRequest("Hello Test"),createHeaders(jwt));
+        HttpEntity<EchoRequest> request = new HttpEntity<>(new EchoRequest("Hello Test"), createHeaders(jwt));
         ResponseEntity<EchoMessage> response = restTemplate.exchange(url, HttpMethod.POST, request, EchoMessage.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
         assertThat(response.getBody(), equalTo(EchoMessage.builder().message("Hello Test").build()));
@@ -103,36 +100,36 @@ public class ApiTest {
 
     @Test
     @Order(7)
-    public void postEventTest(){
+    public void postEventTest() {
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/event";
-        HttpEntity<EventRequest> request = new HttpEntity<>(new EventRequest("Name", "Description", false, null, LocalDate.now(), LocalDate.now().plusDays(1)),createHeaders(jwt));
+        HttpEntity<EventRequest> request = new HttpEntity<>(new EventRequest("Name", "Description", false, null, LocalDate.now(), LocalDate.now().plusDays(1)), createHeaders(jwt));
         ResponseEntity<EchoMessage> response = restTemplate.exchange(url, HttpMethod.POST, request, EchoMessage.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
     }
 
     @Test
     @Order(8)
-    public void postEventSecureTest(){
+    public void postEventSecureTest() {
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/event";
-        HttpEntity<EventRequest> request = new HttpEntity<>(new EventRequest("Name", "Description", true, "test", LocalDate.now(), LocalDate.now().plusDays(1)),createHeaders(jwt));
+        HttpEntity<EventRequest> request = new HttpEntity<>(new EventRequest("Name", "Description", true, "test", LocalDate.now(), LocalDate.now().plusDays(1)), createHeaders(jwt));
         ResponseEntity<EchoMessage> response = restTemplate.exchange(url, HttpMethod.POST, request, EchoMessage.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
     }
 
     @Test
     @Order(9)
-    public void postEventSecureErrorTest(){
+    public void postEventSecureErrorTest() {
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/event";
-        HttpEntity<EventRequest> request = new HttpEntity<>(new EventRequest("Name", "Description", true, null, LocalDate.now(), LocalDate.now().plusDays(1)),createHeaders(jwt));
+        HttpEntity<EventRequest> request = new HttpEntity<>(new EventRequest("Name", "Description", true, null, LocalDate.now(), LocalDate.now().plusDays(1)), createHeaders(jwt));
         Assertions.assertThrows(HttpServerErrorException.InternalServerError.class, () -> restTemplate.postForEntity(url, request, String.class));
     }
 
     @Test
     @Order(10)
-    public void postEventNoLoginTest(){
+    public void postEventNoLoginTest() {
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/event";
         HttpEntity<EventRequest> request = new HttpEntity<>(new EventRequest("Name", "Description", true, null, LocalDate.now(), LocalDate.now().plusDays(1)));
@@ -141,7 +138,7 @@ public class ApiTest {
 
     @Test
     @Order(11)
-    public void postEventDeleteTest(){
+    public void postEventDeleteTest() {
         RestTemplate restTemplate = new RestTemplate();
         String url = url_base + "/event/id/1";
         HttpEntity<EventRequest> request = new HttpEntity<>(createHeaders(jwt));
@@ -149,19 +146,19 @@ public class ApiTest {
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
     }
 
-    HttpHeaders createHeaders(String username, String password){
+    HttpHeaders createHeaders(String username, String password) {
         return new HttpHeaders() {{
             String auth = username + ":" + password;
             byte[] encodedAuth = Base64.encodeBase64(
-                    auth.getBytes(StandardCharsets.UTF_8) );
-            String authHeader = "Basic " + new String( encodedAuth );
-            set( "Authorization", authHeader );
+                    auth.getBytes(StandardCharsets.UTF_8));
+            String authHeader = "Basic " + new String(encodedAuth);
+            set("Authorization", authHeader);
         }};
     }
 
-    HttpHeaders createHeaders(String jwt){
+    HttpHeaders createHeaders(String jwt) {
         return new HttpHeaders() {{
-            set( "Authorization", jwt );
+            set("Authorization", jwt);
         }};
     }
 }

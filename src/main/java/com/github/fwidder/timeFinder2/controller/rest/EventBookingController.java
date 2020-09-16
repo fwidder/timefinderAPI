@@ -28,13 +28,13 @@ public class EventBookingController {
     }
 
     @GetMapping("/{eventId}")
-    public LocalDate getBestDay(@PathVariable String eventId){
+    public LocalDate getBestDay(@PathVariable String eventId) {
         Event event = eventService.getEventById(Long.valueOf(eventId));
         return eventBookingService.getBestDayForEvent(event);
     }
 
     @PostMapping("/{eventId}/{day}")
-    public void postBooking(@PathVariable String eventId, @PathVariable String day, @RequestBody(required = false) String password, Principal principal){
+    public void postBooking(@PathVariable String eventId, @PathVariable String day, @RequestBody(required = false) String password, Principal principal) {
         ApplicationUser user = ((UserPrincipal) userDetailsService.loadUserByUsername(principal.getName())).getApplicationUser();
         Event event = eventService.getEventById(Long.valueOf(eventId));
         LocalDate date = LocalDate.parse(day);
@@ -42,7 +42,7 @@ public class EventBookingController {
     }
 
     @DeleteMapping("/{eventId}/{day}")
-    public void deleteBooking(@PathVariable String eventId, @PathVariable String day, Principal principal){
+    public void deleteBooking(@PathVariable String eventId, @PathVariable String day, Principal principal) {
         ApplicationUser user = ((UserPrincipal) userDetailsService.loadUserByUsername(principal.getName())).getApplicationUser();
         Event event = eventService.getEventById(Long.valueOf(eventId));
         LocalDate date = LocalDate.parse(day);

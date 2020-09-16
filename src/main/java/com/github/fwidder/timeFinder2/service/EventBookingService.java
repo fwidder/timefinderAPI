@@ -9,7 +9,10 @@ import com.github.fwidder.timeFinder2.util.WrongPasswordException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class EventBookingService {
@@ -22,12 +25,12 @@ public class EventBookingService {
         this.eventService = eventService;
     }
 
-    public LocalDate getBestDayForEvent(Event event){
+    public LocalDate getBestDayForEvent(Event event) {
         List<EventBooking> bookings = eventBookingRepository.findAllByEvent(event);
         HashMap<LocalDate, Long> dates = new HashMap<>();
 
         // Return first Day if no Votes present
-        if(bookings.isEmpty())
+        if (bookings.isEmpty())
             return event.getStart();
 
         // Count attendees per date
@@ -41,9 +44,9 @@ public class EventBookingService {
         return Collections.max(dates.entrySet(), Map.Entry.comparingByValue()).getKey();
     }
 
-    public void bookEvent(LocalDate date, Event event, ApplicationUser applicationUser, String password){
-        if(event.getSecure())
-            if(!event.getPassword().equals(password))
+    public void bookEvent(LocalDate date, Event event, ApplicationUser applicationUser, String password) {
+        if (event.getSecure())
+            if (!event.getPassword().equals(password))
                 throw new WrongPasswordException();
         EventBooking booking = EventBooking.builder().//
                 attendee(applicationUser).//
@@ -54,9 +57,9 @@ public class EventBookingService {
         eventBookingRepository.save(booking);
     }
 
-    public void deleteBooking(LocalDate date, Event event, ApplicationUser applicationUser){
+    public void deleteBooking(LocalDate date, Event event, ApplicationUser applicationUser) {
         EventBooking booking = eventBookingRepository.findByDayAndEventAndAttendee(date, event, applicationUser);
-        if(booking == null){
+        if (booking == null) {
             throw new BookingNotFoundException();
         }
         eventBookingRepository.delete(booking);

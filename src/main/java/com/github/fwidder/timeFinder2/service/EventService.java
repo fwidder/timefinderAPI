@@ -5,7 +5,6 @@ import com.github.fwidder.timeFinder2.model.Event;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,25 +23,25 @@ public class EventService {
         return eventRepository.findAllBySecureFalse();
     }
 
-    public List<Event> searchEvent(String creator){
+    public List<Event> searchEvent(String creator) {
         return eventRepository.findAllByCreator_Username(creator);
     }
 
-    public List<Event> searchEvent(LocalDate start, LocalDate end){
+    public List<Event> searchEvent(LocalDate start, LocalDate end) {
         return eventRepository.findAllByStartAfterAndEndBefore(start, end);
     }
 
-    public void createEvent(Event event){
-        if(event.getSecure()){
-            if(event.getPassword() == null)
+    public void createEvent(Event event) {
+        if (event.getSecure()) {
+            if (event.getPassword() == null)
                 throw new IllegalArgumentException("If Event is Secure, Password is not allowed to be Empty!");
-            if(event.getPassword().isBlank())
+            if (event.getPassword().isBlank())
                 throw new IllegalArgumentException("If Event is Secure, Password is not allowed to be Empty!");
         }
         eventRepository.save(event);
     }
 
-    public void deleteEvent(Long eventID){
+    public void deleteEvent(Long eventID) {
         eventRepository.deleteById(eventID);
     }
 }

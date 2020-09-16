@@ -14,12 +14,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-@Table( indexes = { @Index(name = "eventBookingAttendeeIndex", columnList = "ATTENDEE_ID"),
-                    @Index(name = "eventBookingDayIndex", columnList = "DAY"),
-                    @Index(name = "eventBookingEventIndex", columnList = "EVENT_ID"),
-                    @Index(name = "eventBookingBookingUniqueConstraintIndex", columnList = "ATTENDEE_ID, DAY, EVENT_ID")},
-        uniqueConstraints = { @UniqueConstraint(name = "eventBookingBookingUniqueConstraint", columnNames = {"ATTENDEE_ID", "DAY", "EVENT_ID"})
-})
+@Table(indexes = {@Index(name = "eventBookingAttendeeIndex", columnList = "ATTENDEE_ID"),
+        @Index(name = "eventBookingDayIndex", columnList = "DAY"),
+        @Index(name = "eventBookingEventIndex", columnList = "EVENT_ID"),
+        @Index(name = "eventBookingBookingUniqueConstraintIndex", columnList = "ATTENDEE_ID, DAY, EVENT_ID")},
+        uniqueConstraints = {@UniqueConstraint(name = "eventBookingBookingUniqueConstraint", columnNames = {"ATTENDEE_ID", "DAY", "EVENT_ID"})
+        })
 public class EventBooking {
 
     @Id

@@ -19,13 +19,13 @@ public class EchoController {
 
     @GetMapping
     @PreAuthorize("permitAll()")
-    public EchoMessage getEcho(){
+    public EchoMessage getEcho() {
         return echoService.getEcho();
     }
 
     @PostMapping
     @PreAuthorize("isAuthenticated()")
-    public EchoMessage postEcho(@RequestBody EchoRequest request){
+    public EchoMessage postEcho(@RequestBody EchoRequest request) {
         return echoService.getEcho(request.getMessage());
     }
 }

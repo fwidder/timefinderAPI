@@ -14,8 +14,8 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-@Table(indexes = {  @Index(name = "ApplicationUserUserIndex", columnList = "USERNAME"),
-                    @Index(name = "ApplicationUserEmailIndex", columnList = "EMAIL")})
+@Table(indexes = {@Index(name = "ApplicationUserUserIndex", columnList = "USERNAME"),
+        @Index(name = "ApplicationUserEmailIndex", columnList = "EMAIL")})
 public class ApplicationUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

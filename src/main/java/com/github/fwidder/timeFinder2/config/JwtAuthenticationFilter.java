@@ -35,6 +35,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         setFilterProcessesUrl("/jwt-login");
     }
 
+    private static String[] getUserAndPass(String authorization) {
+        String base64Credentials = authorization.substring("Basic".length()).trim();
+        byte[] credDecoded = Base64.getDecoder().decode(base64Credentials);
+        String credentials = new String(credDecoded, StandardCharsets.UTF_8);
+        return credentials.split(":", 2);
+    }
+
     @Nullable
     protected String obtainPassword(HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
@@ -53,13 +60,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             return values[0];
         }
         return null;
-    }
-
-    private static String[] getUserAndPass(String authorization) {
-        String base64Credentials = authorization.substring("Basic".length()).trim();
-        byte[] credDecoded = Base64.getDecoder().decode(base64Credentials);
-        String credentials = new String(credDecoded, StandardCharsets.UTF_8);
-        return credentials.split(":", 2);
     }
 
     @Override
