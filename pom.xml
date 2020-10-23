@@ -12,7 +12,6 @@
     <artifactId>timefinder2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>TimeFinder2</name>
-    <description>Demo project for Spring Boot</description>
 
     <properties>
         <java.version>11</java.version>
@@ -47,6 +46,11 @@
             <groupId>org.springframework.restdocs</groupId>
             <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.2.32</version>
         </dependency>
 
         <!-- Dev -->
