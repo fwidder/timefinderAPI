@@ -22,14 +22,12 @@ import static org.mockito.Mockito.when;
 
 public class EventBookingServiceTest {
     EventBookingService eventBookingService;
-    EventService eventService;
     EventBookingRepository eventBookingRepository;
 
     @BeforeEach
     public void setup(){
-        eventService = Mockito.mock(EventService.class);
         eventBookingRepository = Mockito.mock(EventBookingRepository.class);
-        eventBookingService = new EventBookingService(eventBookingRepository, eventService);
+        eventBookingService = new EventBookingService(eventBookingRepository);
     }
 
     @Test

@@ -24,8 +24,8 @@ public class ApiTest {
 
     public static final String USER_PASS_MAIL = "test";
     static String jwt = null;
-    int randomServerPort = 12345;
-    String url_base = "http://localhost:" + randomServerPort;
+    final int randomServerPort = 12345;
+    final String url_base = "http://localhost:" + randomServerPort;
 
     @Test
     @Order(1)

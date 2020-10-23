@@ -20,11 +20,9 @@ import java.util.Map;
 public class EventBookingService {
 
     private final EventBookingRepository eventBookingRepository;
-    private final EventService eventService;
 
-    public EventBookingService(EventBookingRepository eventBookingRepository, EventService eventService) {
+    public EventBookingService(EventBookingRepository eventBookingRepository) {
         this.eventBookingRepository = eventBookingRepository;
-        this.eventService = eventService;
     }
 
     public LocalDate getBestDayForEvent(Event event) {
