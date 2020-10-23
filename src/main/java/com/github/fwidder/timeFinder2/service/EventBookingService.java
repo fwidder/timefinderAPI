@@ -6,6 +6,7 @@ import com.github.fwidder.timeFinder2.model.Event;
 import com.github.fwidder.timeFinder2.model.EventBooking;
 import com.github.fwidder.timeFinder2.util.BookingNotFoundException;
 import com.github.fwidder.timeFinder2.util.WrongPasswordException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Slf4j
 public class EventBookingService {
 
     private final EventBookingRepository eventBookingRepository;
@@ -63,5 +65,9 @@ public class EventBookingService {
             throw new BookingNotFoundException();
         }
         eventBookingRepository.delete(booking);
+    }
+
+    public List<EventBooking> getMyBookings(ApplicationUser applicationUser){
+        return eventBookingRepository.findAllByAttendee(applicationUser);
     }
 }

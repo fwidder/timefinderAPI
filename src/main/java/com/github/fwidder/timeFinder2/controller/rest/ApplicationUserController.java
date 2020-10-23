@@ -3,6 +3,7 @@ package com.github.fwidder.timeFinder2.controller.rest;
 import com.github.fwidder.timeFinder2.dao.ApplicationUserRepository;
 import com.github.fwidder.timeFinder2.model.rest.ApplicationUserRequest;
 import com.github.fwidder.timeFinder2.util.mapper.ApplicationUserMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
+@Slf4j
 public class ApplicationUserController {
 
     private final ApplicationUserRepository applicationUserRepository;

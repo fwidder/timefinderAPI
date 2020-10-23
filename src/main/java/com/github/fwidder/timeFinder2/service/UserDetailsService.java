@@ -3,11 +3,13 @@ package com.github.fwidder.timeFinder2.service;
 import com.github.fwidder.timeFinder2.dao.ApplicationUserRepository;
 import com.github.fwidder.timeFinder2.model.ApplicationUser;
 import com.github.fwidder.timeFinder2.model.UserPrincipal;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
     private final ApplicationUserRepository applicationUserRepository;

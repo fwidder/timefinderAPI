@@ -2,12 +2,14 @@ package com.github.fwidder.timeFinder2.service;
 
 import com.github.fwidder.timeFinder2.dao.EventRepository;
 import com.github.fwidder.timeFinder2.model.Event;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Slf4j
 public class EventService {
     private final EventRepository eventRepository;
 

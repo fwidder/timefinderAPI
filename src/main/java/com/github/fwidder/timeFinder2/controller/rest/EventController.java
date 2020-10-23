@@ -8,6 +8,7 @@ import com.github.fwidder.timeFinder2.service.EventService;
 import com.github.fwidder.timeFinder2.service.UserDetailsService;
 import com.github.fwidder.timeFinder2.util.EventNotFoundException;
 import com.github.fwidder.timeFinder2.util.mapper.EventMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/event")
+@Slf4j
 @PreAuthorize("isAuthenticated()")
 public class EventController {
     private final EventService eventService;

@@ -2,6 +2,7 @@ package com.github.fwidder.timeFinder2.controller.rest;
 
 import com.github.fwidder.timeFinder2.model.ApplicationUser;
 import com.github.fwidder.timeFinder2.model.Event;
+import com.github.fwidder.timeFinder2.model.EventBooking;
 import com.github.fwidder.timeFinder2.model.UserPrincipal;
 import com.github.fwidder.timeFinder2.service.EventBookingService;
 import com.github.fwidder.timeFinder2.service.EventService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/booking")
@@ -31,6 +33,12 @@ public class EventBookingController {
     public LocalDate getBestDay(@PathVariable String eventId) {
         Event event = eventService.getEventById(Long.valueOf(eventId));
         return eventBookingService.getBestDayForEvent(event);
+    }
+
+    @GetMapping("/")
+    public List<EventBooking> getMyBookings(Principal principal){
+        ApplicationUser user = ((UserPrincipal) userDetailsService.loadUserByUsername(principal.getName())).getApplicationUser();
+        return eventBookingService.getMyBookings(user);
     }
 
     @PostMapping("/{eventId}/{day}")
