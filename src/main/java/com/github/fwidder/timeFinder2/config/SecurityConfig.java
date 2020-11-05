@@ -13,6 +13,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
 @Configuration
@@ -53,6 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // Enable Cross Origin Requests
+        http.cors();
+
         // Enable Post Requests
         http.csrf().disable();
 
@@ -73,6 +80,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // Add Filter for JWT
         http.addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtAudience, jwtIssuer, jwtSecret, jwtType));
         http.addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtSecret));
-    }
 
+        // Add Filter for Cross Origin Requests
+        http.addFilterBefore(new SimpleCORSFilter(), JwtAuthorizationFilter.class);
+    }
 }
